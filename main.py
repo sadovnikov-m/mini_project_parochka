@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from markdown_it.rules_inline import balance_pairs
 
 ticker = "BTC-USD"
-raw_data = yf.download(ticker, start="2023-08-28", end="2026-04-06")
+raw_data = yf.download(ticker, start="2023-08-28", end="2025-04-06")
 
 df=pd.DataFrame(raw_data)
 
@@ -50,6 +50,17 @@ plt.figure(figsize = (10,8))
 plt.plot(df['Close'], label='Ціна BTC', color='#4040bf')
 plt.plot(df['SMA_short'], label='short SMA', color='#00ff00')
 plt.plot(df['SMA_long'], label='long SMA', color='#ff0000')
+
+plt.plot(df[df["Moment"]==1].index,
+         df["SMA_short"][df["Moment"]==1],
+         "^", markersize=8, color='green', label="Сигнал купівлі")
+plt.plot(df[df["Moment"]==-1].index,
+         df["SMA_short"][df["Moment"]==-1],
+         "^", markersize=8, color='red', label="Сигнал продажу")
+
 plt.title('Торгова стратегія BTC-USD')
+plt.xlabel("ДАТА")
+plt.ylabel("ЦІНА (USD)")
+plt.legend()
 plt.grid(True)
 plt.show()
