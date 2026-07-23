@@ -45,5 +45,11 @@ for i in range(len(df)):
         in_position = False
 print(f"Загальний прибуток: {balance:.2f}$")
 
-
-
+#Візуалізація
+plt.figure(figsize = (10,8))
+plt.plot(df['Close'], label='Ціна BTC', color='#4040bf')
+plt.plot(df['SMA_short'], label='short SMA', color='#00ff00')
+plt.plot(df['SMA_long'], label='long SMA', color='#ff0000')
+plt.title('Торгова стратегія BTC-USD')
+plt.grid(True)
+plt.show()
